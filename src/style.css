@@ -4,6 +4,13 @@
 
 @layer base {
   body {
+    perspective: 1500px;
     @apply w-screen h-screen flex items-center justify-center;
+  }
+}
+
+@layer utilities {
+  .rotate-3d-0 {
+    transform: rotate3d(0, 0, 0, 0deg);
   }
 }

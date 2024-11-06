@@ -1,0 +1,65 @@
+<div
+  class="card rotate-3d-0 relative h-full w-full overflow-hidden rounded-xl shadow-[0_1px_5px_#00000099] transition-all duration-300 ease-out hover:shadow-[0_5px_20px_5px_#00000044] hover:duration-150"
+>
+  <slot />
+  <div
+    class="glow absolute left-0 top-0 h-full w-full bg-[radial-gradient(circle_at_50%_-20%,_#ffffff22,_#0000000f)]"
+  >
+  </div>
+</div>
+
+<script>
+  import { getHTMLElement } from '~/utils';
+
+  const isDesktop = window.innerWidth >= 1024;
+
+  if (isDesktop) {
+    const cardEl = getHTMLElement('.card');
+    const glowEl = getHTMLElement('.glow');
+
+    let bounds: DOMRect;
+
+    function rotateToMouse(e: MouseEvent) {
+      const mouseX = e.clientX;
+      const mouseY = e.clientY;
+      const leftX = mouseX - bounds.x;
+      const topY = mouseY - bounds.y;
+      const center = {
+        x: leftX - bounds.width / 2,
+        y: topY - bounds.height / 2
+      };
+      const distance = Math.sqrt(center.x ** 2 + center.y ** 2);
+
+      cardEl.style.transform = `
+        scale3d(1.07, 1.07, 1.07)
+        rotate3d(
+          ${center.y / 100},
+          ${-center.x / 100},
+          0,
+          ${Math.log(distance) * 2}deg
+        )
+      `;
+
+      glowEl.style.backgroundImage = `
+        radial-gradient(
+          circle at
+          ${center.x * 2 + bounds.width / 2}px
+          ${center.y * 2 + bounds.height / 2}px,
+          #ffffff55,
+          #0000000f
+        )
+      `;
+    }
+
+    cardEl.addEventListener('mouseenter', () => {
+      bounds = cardEl.getBoundingClientRect();
+      document.addEventListener('mousemove', rotateToMouse);
+    });
+
+    cardEl.addEventListener('mouseleave', () => {
+      document.removeEventListener('mousemove', rotateToMouse);
+      cardEl.style.transform = '';
+      cardEl.style.background = '';
+    });
+  }
+</script>

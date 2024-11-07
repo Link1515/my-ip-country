@@ -13,13 +13,13 @@
 
   const isDesktop = window.innerWidth >= 1024;
 
-  if (isDesktop) {
-    const cardEl = getHTMLElement('.card');
-    const glowEl = getHTMLElement('.glow');
+  const cardEl = getHTMLElement('.card');
+  const glowEl = getHTMLElement('.glow');
 
-    let bounds: DOMRect;
+  let bounds: DOMRect;
 
-    function rotateToMouse(e: MouseEvent) {
+  function rotateToMouse(e: MouseEvent) {
+    if (isDesktop) {
       const mouseX = e.clientX;
       const mouseY = e.clientY;
       const leftX = mouseX - bounds.x;
@@ -49,17 +49,19 @@
           #0000000f
         )
       `;
+    } else {
+      cardEl.style.transform = 'scale3d(1.07, 1.07, 1.07)';
     }
-
-    cardEl.addEventListener('mouseenter', () => {
-      bounds = cardEl.getBoundingClientRect();
-      document.addEventListener('mousemove', rotateToMouse);
-    });
-
-    cardEl.addEventListener('mouseleave', () => {
-      document.removeEventListener('mousemove', rotateToMouse);
-      cardEl.style.transform = '';
-      cardEl.style.background = '';
-    });
   }
+
+  cardEl.addEventListener('mouseenter', () => {
+    bounds = cardEl.getBoundingClientRect();
+    document.addEventListener('mousemove', rotateToMouse);
+  });
+
+  cardEl.addEventListener('mouseleave', () => {
+    document.removeEventListener('mousemove', rotateToMouse);
+    cardEl.style.transform = '';
+    cardEl.style.background = '';
+  });
 </script>

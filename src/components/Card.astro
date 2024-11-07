@@ -1,5 +1,6 @@
 <div
-  class="flex flex-col p-3 text-[#181a1a] transition-colors duration-300 dark:text-zinc-200"
+  id="card"
+  class="flex flex-col p-4 text-[#181a1a] transition-colors duration-300 dark:text-zinc-200"
 >
   <h3 id="ip" class="text-center font-bold"></h3>
 
@@ -26,6 +27,13 @@
   </div>
 </div>
 
+<p
+  id="errorMessage"
+  class="grid min-h-[240px] place-items-center p-4 text-[#181a1a] transition-colors dark:text-zinc-200"
+  style="display: none;"
+>
+</p>
+
 <script>
   import { getHTMLElement, formatCountryInfo } from '~/utils';
   import { requestIpAndCountry, requestCountryInfo } from '~/requests';
@@ -40,19 +48,29 @@
   const flagEmojiEl = getHTMLElement('#flagEmoji');
   const flagImageEl = getHTMLElement<HTMLImageElement>('#flagImage');
 
-  const { ip, country } = await requestIpAndCountry();
-  const countryInfo = await requestCountryInfo(country);
-  const formattedCountryInfo = formatCountryInfo(countryInfo);
+  try {
+    const { ip, country } = await requestIpAndCountry();
+    const countryInfo = await requestCountryInfo(country);
+    const formattedCountryInfo = formatCountryInfo(countryInfo);
 
-  ipEl.innerText = ip;
-  countryEl.innerText = formattedCountryInfo.name;
-  currencyEl.innerText = formattedCountryInfo.currency;
-  mapEl.href = formattedCountryInfo.map;
-  languageEl.innerText = formattedCountryInfo.language;
-  regionEl.innerText = formattedCountryInfo.region;
-  populationEl.innerText = formattedCountryInfo.population.toString();
-  flagEmojiEl.innerText = formattedCountryInfo.flagEmoji;
-  flagImageEl.src = formattedCountryInfo.flag;
+    ipEl.innerText = ip;
+    countryEl.innerText = formattedCountryInfo.name;
+    currencyEl.innerText = formattedCountryInfo.currency;
+    mapEl.href = formattedCountryInfo.map;
+    languageEl.innerText = formattedCountryInfo.language;
+    regionEl.innerText = formattedCountryInfo.region;
+    populationEl.innerText = formattedCountryInfo.population.toString();
+    flagEmojiEl.innerText = formattedCountryInfo.flagEmoji;
+    flagImageEl.src = formattedCountryInfo.flag;
+  } catch (error) {
+    const cardEl = getHTMLElement('#card');
+    const errorMessageEl = getHTMLElement('#errorMessage');
 
-  window.appReady();
+    cardEl.style.display = 'none';
+    errorMessageEl.style.display = '';
+    errorMessageEl.innerText =
+      "Unfortunately, we're currently unable to retrieve your IP address. Please try again later.";
+  } finally {
+    window.appReady();
+  }
 </script>

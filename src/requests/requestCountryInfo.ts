@@ -1,7 +1,7 @@
 const API_URL =
   "https://restcountries.com/v3.1/alpha/<country>?fields=name,currencies,capital,capitalInfo,region,subregion,languages,maps,population,flag,flags";
 
-interface CountryInfo {
+export interface CountryInfo {
   name: Name;
   capital: string[];
   capitalInfo: CapitalInfo;

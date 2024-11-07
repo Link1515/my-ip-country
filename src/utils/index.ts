@@ -1,1 +1,2 @@
-export * from './getHtmlElement';
+export * from "./getHtmlElement";
+export * from "./formatCountryInfo";

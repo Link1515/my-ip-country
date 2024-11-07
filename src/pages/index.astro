@@ -1,10 +1,13 @@
 ---
 import Layout from '~/layouts/Layout.astro';
 import ThreeDEffectWrap from '~/components/ThreeDEffectWrap.astro';
+import Card from '~/components/Card.astro';
 ---
 
 <Layout>
-  <div class="h-[400px] w-[300px]">
-    <ThreeDEffectWrap />
+  <div class="max-w-[300px]">
+    <ThreeDEffectWrap>
+      <Card />
+    </ThreeDEffectWrap>
   </div>
 </Layout>

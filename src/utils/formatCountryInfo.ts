@@ -6,10 +6,10 @@ export const formatCountryInfo = (countryInfo: CountryInfo) => {
     capital: countryInfo.capital.join(", "),
     region: countryInfo.subregion,
     currency: Object.values(countryInfo.currencies)
-      .map((currency) => currency.name)
+      .map((currency) => `${currency.name} (${currency.symbol})`)
       .join(", "),
     flag: countryInfo.flags.svg,
-    flagIcon: countryInfo.flag,
+    flagEmoji: countryInfo.flag,
     language: Object.values(countryInfo.languages).join(", "),
     map: countryInfo.maps.googleMaps,
     population: countryInfo.population,

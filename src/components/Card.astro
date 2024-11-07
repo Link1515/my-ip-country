@@ -18,12 +18,12 @@
   </div>
 
   <div class="grid grid-cols-[24px_auto] gap-x-2 gap-y-1">
-    <span class="material-symbols-outlined mt-0.5">paid</span>
-    <h3 id="currency"></h3>
-    <span class="material-symbols-outlined mt-0.5">translate</span>
-    <h3 id="language"></h3>
     <span class="material-symbols-outlined mt-0.5">public</span>
     <h3 id="region"></h3>
+    <span class="material-symbols-outlined mt-0.5">translate</span>
+    <h3 id="language"></h3>
+    <span class="material-symbols-outlined mt-0.5">paid</span>
+    <h3 id="currency"></h3>
     <span class="material-symbols-outlined mt-0.5">groups</span>
     <h3 id="population"></h3>
   </div>
@@ -56,4 +56,6 @@
   populationEl.innerText = formattedCountryInfo.population.toString();
   flagEmojiEl.innerText = formattedCountryInfo.flagEmoji;
   flagImageEl.src = formattedCountryInfo.flag;
+
+  window.appReady();
 </script>

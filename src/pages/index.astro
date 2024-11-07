@@ -5,9 +5,22 @@ import Card from '~/components/Card.astro';
 ---
 
 <Layout>
-  <div class="max-w-[300px]">
+  <div
+    id="app"
+    class="max-w-[300px] transition-opacity duration-500"
+    style="opacity: 0;"
+  >
     <ThreeDEffectWrap>
       <Card />
     </ThreeDEffectWrap>
   </div>
 </Layout>
+
+<script>
+  import { getHTMLElement } from '~/utils';
+
+  const appEl = getHTMLElement('#app');
+  window.appReady = function () {
+    appEl.style.opacity = '1';
+  };
+</script>

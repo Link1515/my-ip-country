@@ -1,7 +1,7 @@
 const API_URL =
   "https://restcountries.com/v3.1/alpha/<country>?fields=name,currencies,capital,capitalInfo,region,subregion,languages,maps,population,flag,flags";
 
-interface Response {
+interface CountryInfo {
   name: Name;
   capital: string[];
   capitalInfo: CapitalInfo;
@@ -41,7 +41,7 @@ interface Maps {
 }
 
 export const requestCountryInfo = async (country: string) => {
-  return await fetch(API_URL.replace("<country>", country)).then<Response>(
+  return await fetch(API_URL.replace("<country>", country)).then<CountryInfo>(
     (res) => res.json(),
   );
 };

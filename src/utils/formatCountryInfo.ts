@@ -1,3 +1,4 @@
+import { formatNumber } from "accounting";
 import type { CountryInfo } from "~/requests/requestCountryInfo";
 
 export const formatCountryInfo = (countryInfo: CountryInfo) => {
@@ -12,6 +13,6 @@ export const formatCountryInfo = (countryInfo: CountryInfo) => {
     flagEmoji: countryInfo.flag,
     language: Object.values(countryInfo.languages).join(", "),
     map: countryInfo.maps.googleMaps,
-    population: countryInfo.population,
+    population: formatNumber(countryInfo.population),
   };
 };

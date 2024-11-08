@@ -36,7 +36,11 @@
 
 <script>
   import { getHTMLElement, formatCountryInfo } from '~/utils';
-  import { requestIpAndCountry, requestCountryInfo } from '~/requests';
+  import {
+    requestIp,
+    requestCountryByIp,
+    requestCountryInfo
+  } from '~/requests';
 
   const ipEl = getHTMLElement('#ip');
   const countryEl = getHTMLElement('#country');
@@ -49,7 +53,8 @@
   const flagImageEl = getHTMLElement<HTMLImageElement>('#flagImage');
 
   try {
-    const { ip, country } = await requestIpAndCountry();
+    const ip = await requestIp();
+    const { country } = await requestCountryByIp(ip);
     const countryInfo = await requestCountryInfo(country);
     const formattedCountryInfo = formatCountryInfo(countryInfo);
 
